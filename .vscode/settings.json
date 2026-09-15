@@ -1,5 +1,5 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": ["src/ar/edu/unju/fi/ed2026"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
