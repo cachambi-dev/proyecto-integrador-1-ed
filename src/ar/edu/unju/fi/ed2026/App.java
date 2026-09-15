@@ -1,3 +1,5 @@
+package ar.edu.unju.fi.ed2026;
+
 import java.util.Scanner;
 
 public class App {

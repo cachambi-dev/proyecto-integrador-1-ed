@@ -16,7 +16,7 @@
     </properties>
 
     <build>
-        <sourceDirectory>src/ar/edu/unju/fi/ed2026</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
