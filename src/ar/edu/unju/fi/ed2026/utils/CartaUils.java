@@ -1,0 +1,84 @@
+package ar.edu.unju.fi.ed2026.utils;
+
+import ar.edu.unju.fi.ed2026.Carta;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class CartaUils {
+
+    /**
+     * Genera un arreglo de cartas de juego con todos los palos y valores posibles.
+     * @return Un arreglo de objetos Carta que representa un mazo completo de cartas.
+     */
+     public static Carta[] generarCartas() {
+        Carta[] cartas = new Carta[52];
+
+        String[] palos = {"Oro", "Copa", "Espada", "Basto"};
+        int index = 0;
+
+        for (String palo : palos) {
+            for (int valor = 1; valor <= 13; ++valor) {
+                cartas[index] = new Carta(palo, valor, true);
+                index++;
+            }
+        }
+        return cartas;
+    }
+
+    /**
+     * Genera un mazo de cartas aleatorio sin repeticiones.
+     * @return Un arreglo de objetos Carta que representa un mazo de cartas aleatorio.
+     */
+    public static Carta[] generarMazo(){
+        Carta[] cartas = generarCartas();
+        Carta[] mazoCartas = new Carta[cartas.length];
+        int posicion = 0;
+
+        while (posicion < mazoCartas.length) {
+            Carta cartaGenerada = cartas[generarIndiceAleatorio()];
+
+            if (!cartaRepetida(mazoCartas, cartaGenerada)) {
+                mazoCartas[posicion] = cartaGenerada;
+                posicion++;
+            }
+        }
+
+        return mazoCartas;
+    }
+
+    /**
+     * Genera un índice aleatorio para seleccionar una carta del mazo.
+     * @return Un número entero aleatorio entre 0 y 51 (inclusive).
+     */
+    public static int generarIndiceAleatorio() {
+        return ThreadLocalRandom.current().nextInt(52);
+    }
+
+    /**
+     * Verifica si una carta generada ya está presente en el mazo.
+     * @param mazo El arreglo de cartas que representa el mazo.
+     * @param cartaGenerada La carta que se desea verificar.
+     * @return true si la carta ya está en el mazo, false en caso contrario.
+     */
+    public static boolean cartaRepetida(Carta[] mazo, Carta cartaGenerada){
+        if (mazo.length == 0) {
+            return false;
+        }else{
+            for (Carta carta : mazo) {
+                if (carta != null && carta.getPalo().equals(cartaGenerada.getPalo()) && carta.getValor() == cartaGenerada.getValor()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Muestra en consola la información de cada carta en el arreglo proporcionado.
+     * @param cartas Un arreglo de objetos Carta que se desea mostrar.
+     */
+    public static void mostrarCarta(Carta[] cartas){
+        for (Carta carta : cartas) {
+            System.out.println(carta.toString());
+        }
+    }
+}
