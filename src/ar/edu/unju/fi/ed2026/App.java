@@ -91,8 +91,20 @@ public class App {
                         if (!jugadoresRegistrados) {
                             System.out.println("\n[Atención] Primero debe registrar a los 4 jugadores (Opción 1).");
                         } else {
-                            System.out.println("\n>> [Módulo] Iniciando el juego de cartas...");
-                            // Lógica de rondas.
+                            System.out.println("\n>> Creando Mazo y la Pila...");
+
+                            Mazo mazoPrueba = new Mazo();
+
+                            System.out.println("¡Mazo creado con éxito! Cartas totales en la pila: " + mazoPrueba.cartasRestantes());
+                            System.out.println("\n--- Simulando extracción de cartas para los 4 jugadores ---");
+
+                            // Probamos sacar 4 cartas (una para cada jugador registrado)
+                            for (int i = 0; i < 4; i++) {
+                                System.out.print("Jugador " + (i + 1) + " -> ");
+                                mazoPrueba.sacarYMostrarCarta();
+                            }
+
+                            System.out.println("\nCartas restantes en la pila: " + mazoPrueba.cartasRestantes());
                         }
                         break;
 
