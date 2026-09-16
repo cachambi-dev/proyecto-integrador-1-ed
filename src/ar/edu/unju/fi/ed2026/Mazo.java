@@ -60,6 +60,18 @@ public class Mazo {
         return false;
     }
 
+    //Reparte una carta del mazo a cada uno de los jugadores.
+    public void repartirCartasAJugadores(Jugador[] jugadores) {
+    for (Jugador jugador : jugadores) {
+        if (!estaVacio()) {
+            Carta cartaExtraida = sacarYMostrarCarta(); // Hace el pop() de MiStack
+            jugador.setCartaEnMano(cartaExtraida);
+        } else {
+            System.out.println("[Aviso] No hay suficientes cartas en el mazo.");
+        }
+    }
+}
+
     public Carta sacarYMostrarCarta() {
         if (pilaCartas.isEmpty()) {
             System.out.println("[Aviso] El mazo se ha quedado sin cartas.");
