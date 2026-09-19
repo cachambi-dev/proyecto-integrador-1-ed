@@ -112,7 +112,7 @@ public class Mazo {
      * 
      * @throws IllegalStateException Si el mazo está vacío.
      */
-    public void extrarCarta() {
+    public void extraerCarta() {
         if (this.mazoCartas.isEmpty()) {
             throw new IllegalStateException("No hay más cartas en el mazo.");
         }
