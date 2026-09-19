@@ -1,93 +1,115 @@
 package ar.edu.unju.fi.ed2026;
 
-import ar.edu.unju.fi.ed2026.utils.CartaUils;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Mazo {
-    private MiStack pilaCartas;
+    private Queue<Carta> mazoCartas;
 
     public Mazo() {
-        this.pilaCartas = new MiStack(52);
-        inicializarYApilarMazo();
+        this.mazoCartas = new Queue<>(52);
+        this.mazoCartas = generarMazo();
     }
 
-    private void inicializarYApilarMazo() {
-        Carta[] cartasAleatorias = generarMazoFrancesAleatorio();
+    /**
+     * Genera un arreglo de cartas de juego con todos los palos y valores posibles.
+     * 
+     * @return Un arreglo de objetos Carta que representa un mazo completo de
+     *         cartas.
+     */
+    private Carta[] generarCartas() {
+        Carta[] cartas = new Carta[52];
 
-        for (Carta carta : cartasAleatorias) {
-            if (carta != null) {
-                pilaCartas.push(carta);
-            }
-        }
-    }
-
-
-    private Carta[] generarMazoFrancesAleatorio() {
-        Carta[] cartasBase = new Carta[52];
-        String[] palos = {"Trébol", "Pica", "Corazones", "Diamantes"};
+        String[] palos = { "Oro", "Copa", "Espada", "Basto" };
         int index = 0;
 
-        // Generamos las 52 cartas base ordenadas
         for (String palo : palos) {
-            for (int valor = 1; valor <= 13; valor++) {
-                cartasBase[index] = new Carta(palo, valor, true);
+            for (int valor = 1; valor <= 13; ++valor) {
+                cartas[index] = new Carta(palo, valor, true);
                 index++;
             }
         }
+        return cartas;
+    }
 
-        // Las mezclamos en un mazo aleatorio
-        Carta[] mazoAleatorio = new Carta[52];
+    /**
+     * Genera un mazo de cartas aleatorio sin repeticiones.
+     * 
+     * @return Un arreglo de objetos Carta que representa un mazo de cartas
+     *         aleatorio.
+     */
+    private Carta[] generarMazoAleatorio() {
+        Carta[] cartas = generarCartas();
+        Carta[] mazoCartas = new Carta[cartas.length];
         int posicion = 0;
 
-        while (posicion < 52) {
-            int indiceAleatorio = CartaUils.generarIndiceAleatorio(); // 0 a 51
-            Carta cartaSeleccionada = cartasBase[indiceAleatorio];
+        while (posicion < mazoCartas.length) {
+            Carta cartaGenerada = cartas[generarIndiceAleatorio()];
 
-            if (!cartaYaExisteEnMazo(mazoAleatorio, cartaSeleccionada)) {
-                mazoAleatorio[posicion] = cartaSeleccionada;
+            if (!cartaRepetida(mazoCartas, cartaGenerada)) {
+                mazoCartas[posicion] = cartaGenerada;
                 posicion++;
             }
         }
 
-        return mazoAleatorio;
+        return mazoCartas;
     }
 
-    private boolean cartaYaExisteEnMazo(Carta[] mazo, Carta cartaBuscada) {
-        for (Carta c : mazo) {
-            if (c != null && c.getPalo().equals(cartaBuscada.getPalo()) && c.getValor() == cartaBuscada.getValor()) {
-                return true;
+    /**
+     * Genera un índice aleatorio para seleccionar una carta del mazo.
+     * 
+     * @return Un número entero aleatorio entre 0 y 51 (inclusive).
+     */
+    private int generarIndiceAleatorio() {
+        return ThreadLocalRandom.current().nextInt(52);
+    }
+
+    /**
+     * Verifica si una carta generada ya está presente en el mazo.
+     * 
+     * @param mazo          El arreglo de cartas que representa el mazo.
+     * @param cartaGenerada La carta que se desea verificar.
+     * @return true si la carta ya está en el mazo, false en caso contrario.
+     */
+    private boolean cartaRepetida(Carta[] mazo, Carta cartaGenerada) {
+        if (mazo.length == 0) {
+            return false;
+        } else {
+            for (Carta carta : mazo) {
+                if (carta != null && carta.getPalo().equals(cartaGenerada.getPalo())
+                        && carta.getValor() == cartaGenerada.getValor()) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    //Reparte una carta del mazo a cada uno de los jugadores.
-    public void repartirCartasAJugadores(Jugador[] jugadores) {
-    for (Jugador jugador : jugadores) {
-        if (!estaVacio()) {
-            Carta cartaExtraida = sacarYMostrarCarta(); // Hace el pop() de MiStack
-            jugador.setCartaEnMano(cartaExtraida);
-        } else {
-            System.out.println("[Aviso] No hay suficientes cartas en el mazo.");
-        }
-    }
-}
+    /**
+     * Genera un mazo de cartas aleatorio y lo almacena en una cola.
+     * 
+     * @return Una cola que contiene las cartas del mazo en orden aleatorio.
+     */
+    private Queue<Carta> generarMazo() {
+        Carta[] mazoAleatorio = generarMazoAleatorio();
+        Queue<Carta> mazo = new Queue<>(mazoAleatorio.length);
 
-    public Carta sacarYMostrarCarta() {
-        if (pilaCartas.isEmpty()) {
-            System.out.println("[Aviso] El mazo se ha quedado sin cartas.");
-            return null;
+        for (Carta carta : mazoAleatorio) {
+            mazo.offer(carta);
         }
 
-        Carta cartaExtraida = pilaCartas.pop();
-        System.out.println("Carta extraída del mazo: " + cartaExtraida.toString());
-        return cartaExtraida;
+        return mazo;
     }
 
-    public boolean estaVacio() {
-        return pilaCartas.isEmpty();
+    /**
+     * Saca y muestra la carta superior del mazo.
+     * 
+     * @throws IllegalStateException Si el mazo está vacío.
+     */
+    public void extrarCarta() {
+        if (this.mazoCartas.isEmpty()) {
+            throw new IllegalStateException("No hay más cartas en el mazo.");
+        }
+        this.mazoCartas.remove();
     }
 
-    public int cartasRestantes() {
-        return pilaCartas.size();
-    }
 }

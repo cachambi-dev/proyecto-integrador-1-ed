@@ -93,18 +93,18 @@ public class App {
                         } else {
                             System.out.println("\n>> Creando Mazo y la Pila...");
 
-                            Mazo mazoPrueba = new Mazo();
+                            //Mazo mazoPrueba = new Mazo();
 
-                            System.out.println("¡Mazo creado con éxito! Cartas totales en la pila: " + mazoPrueba.cartasRestantes());
+                           // System.out.println("¡Mazo creado con éxito! Cartas totales en la pila: " + mazoPrueba.cartasRestantes());
                             System.out.println("\n--- Simulando extracción de cartas para los 4 jugadores ---");
 
                             // Probamos sacar 4 cartas (una para cada jugador registrado)
                             for (int i = 0; i < 4; i++) {
                                 System.out.print("Jugador " + (i + 1) + " -> ");
-                                mazoPrueba.sacarYMostrarCarta();
+                             //   mazoPrueba.sacarYMostrarCarta();
                             }
 
-                            System.out.println("\nCartas restantes en la pila: " + mazoPrueba.cartasRestantes());
+                            //System.out.println("\nCartas restantes en la pila: " + mazoPrueba.cartasRestantes());
                         }
                         break;
 
