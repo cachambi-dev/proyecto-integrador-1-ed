@@ -6,6 +6,7 @@ public class Jugador {
     private int edad;
     private int puntaje;
     private Object cartaEnMano;
+    private MiStack cartasAcumuladas;
 
     // Constructor vacío
     public Jugador() {
@@ -17,17 +18,6 @@ public class Jugador {
         this.apellido = apellido;
         this.edad = edad;
         this.puntaje = 0;
-    }
-
-    // --- MÉTODOS PARA CARGAR DATOS ---
-
-    public void cargarNombreyapellido(String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-    }
-
-    public void cargarEdad(int edad) {
-        this.edad = edad;
     }
 
     // --- GETTERS Y SETTERS (para manipular la info desde el Main u otras clases) ---
@@ -70,6 +60,14 @@ public class Jugador {
 
     public void setCartaEnMano(Object cartaEnMano) {
         this.cartaEnMano = cartaEnMano;
+    }
+    
+    public MiStack getCartasAcumuladas() {
+    	return cartasAcumuladas;
+    }
+    
+    public void setCartasAcumuladas(MiStack cartasAcumuladas) {
+    	this.cartasAcumuladas = cartasAcumuladas;
     }
 
     @Override

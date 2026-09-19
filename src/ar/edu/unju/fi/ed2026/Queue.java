@@ -82,7 +82,7 @@ public class Queue<E> {
      * @return El primer elemento de la cola, o null si la cola está vacía.
      */
     @SuppressWarnings("unchecked")
-    public E pool() {
+    public E pull() {
 
         if (cantidad == 0) {
             return null;
