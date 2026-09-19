@@ -2,9 +2,16 @@ package ar.edu.unju.fi.ed2026;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Clase que representa un mazo de cartas de juego.
+ */
 public class Mazo {
     private Queue<Carta> mazoCartas;
 
+    /**
+     * Constructor de la clase Mazo. Inicializa el mazo de cartas generando un
+     * mazo aleatorio.
+     */
     public Mazo() {
         this.mazoCartas = new Queue<>(52);
         this.mazoCartas = generarMazo();
