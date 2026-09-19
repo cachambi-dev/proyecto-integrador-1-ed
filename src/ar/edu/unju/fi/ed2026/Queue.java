@@ -26,12 +26,13 @@ public class Queue<E> {
     }
 
 
-    // =====================================================
-    // OFFER
-    // Agrega un elemento al final de la cola
-    // Devuelve false si la cola está llena
-    // =====================================================
 
+    /**
+     * Agrega un elemento al final de la cola.
+     *
+     * @param elemento El elemento que se desea agregar a la cola.
+     * @return true si el elemento se agregó correctamente, false si la cola está llena.
+     */
     public boolean offer(E elemento) {
 
         if (cantidad >= elementos.length) {
@@ -50,12 +51,14 @@ public class Queue<E> {
     }
 
 
-    // =====================================================
-    // ADD
-    // Agrega un elemento al final de la cola
-    // Si está llena, genera un error
-    // =====================================================
-
+ 
+    /**
+     * Agrega un elemento al final de la cola.
+     * 
+     * @param elemento El elemento que se desea agregar a la cola.
+     * @return true si el elemento se agregó correctamente.
+     * @throws IllegalStateException Si la cola está llena.
+     */
     public boolean add(E elemento) {
 
         if (cantidad >= elementos.length) {
@@ -73,12 +76,11 @@ public class Queue<E> {
     }
 
 
-    // =====================================================
-    // POOL
-    // Saca y devuelve el primer elemento
-    // Devuelve null si la cola está vacía
-    // =====================================================
-
+    /**
+     * Saca y devuelve el primer elemento de la cola.
+     * 
+     * @return El primer elemento de la cola, o null si la cola está vacía.
+     */
     @SuppressWarnings("unchecked")
     public E pool() {
 
@@ -98,12 +100,13 @@ public class Queue<E> {
     }
 
 
-    // =====================================================
-    // REMOVE
-    // Saca y devuelve el primer elemento
-    // Si está vacía, genera un error
-    // =====================================================
-
+    
+    /**
+     * Saca y devuelve el primer elemento de la cola.
+     * 
+     * @return El primer elemento de la cola.
+     * @throws IllegalStateException Si la cola está vacía.
+     */
     @SuppressWarnings("unchecked")
     public E remove() {
 
@@ -122,11 +125,12 @@ public class Queue<E> {
     }
 
 
-    // =====================================================
-    // PEEK
-    // Devuelve el primer elemento SIN sacarlo
-    // =====================================================
-
+    
+    /**
+     * Devuelve el primer elemento de la cola sin sacarlo.
+     * 
+     * @return El primer elemento de la cola, o null si la cola está vacía.
+     */
     @SuppressWarnings("unchecked")
     public E peek() {
 
@@ -138,56 +142,64 @@ public class Queue<E> {
     }
 
 
-    // =====================================================
-    // HEAD
-    // Devuelve la posición donde está el primer elemento
-    // =====================================================
-
+    
+    /**
+     * Devuelve el primer elemento de la cola sin sacarlo.
+     * 
+     * @return El primer elemento de la cola.
+     * @throws IllegalStateException Si la cola está vacía.
+     */
     public int head() {
 
+        if (cantidad == 0) {
+            throw new IllegalStateException("Cola vacía");
+        }
         return head;
     }
 
 
-    // =====================================================
-    // TAIL
-    // Devuelve la posición donde se agregará el próximo elemento
-    // =====================================================
-
+    
+    /**
+     * Devuelve la posición donde se agregará el próximo elemento.
+     * 
+     * @return La posición de tail.
+     */
     public int tail() {
 
         return tail;
     }
 
 
-    // =====================================================
-    // ISEMPTY
-    // Indica si la cola está vacía
-    // =====================================================
-
+    
+    /**
+     * Verifica si la cola está vacía.
+     * 
+     * @return true si la cola está vacía, false en caso contrario.
+     */
     public boolean isEmpty() {
 
         return cantidad == 0;
     }
 
 
-    // =====================================================
-    // SIZE
-    // Devuelve la cantidad de elementos
-    // =====================================================
-
+   
+    /**
+     * Devuelve la cantidad de elementos que tiene actualmente la cola.
+     * 
+     * @return La cantidad de elementos en la cola.
+     */
     public int size() {
 
         return cantidad;
     }
 
 
-    // =====================================================
-    // TOSTRING
-    // Muestra los elementos respetando el orden de la cola
-    // aunque head y tail hayan dado la vuelta
-    // =====================================================
-
+   
+    /**
+     * Devuelve la capacidad máxima de la cola.
+     * 
+     * @return La capacidad de la cola.
+     */
     @Override
     public String toString() {
 
