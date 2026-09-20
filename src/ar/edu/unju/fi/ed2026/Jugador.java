@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.ed2026;
 
+
 public class Jugador {
     private String nombre;
     private String apellido;
@@ -73,5 +74,16 @@ public class Jugador {
     @Override
     public String toString() {
         return "Jugador: " + nombre + " " + apellido + " (Edad: " + edad + " años) - Puntaje actual: " + puntaje;
+    }
+
+    public int sumarPuntaje() {
+        int total = 0;
+
+        while (!this.cartasAcumuladas.isEmpty()) {
+            Carta carta = this.cartasAcumuladas.pop();
+            total += carta.getValor();
+        }   
+
+        return total;
     }
 }

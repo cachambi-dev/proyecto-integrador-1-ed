@@ -1,5 +1,4 @@
-
-import java.util.Scanner;
+import ar.edu.unju.fi.ed2026.Helper.*;
 
 public class Juego {
 	// codigo del juego
@@ -7,9 +6,29 @@ public class Juego {
 	Mazo mazo;
 	
 	public Juego() {
-		
 		this.jugadores = cargarJugadores();
 		this.mazo = new Mazo();
+        int opcion;
+        do{
+            opcion = mostrarMenu();
+            switch (opcion) {
+                case 1:
+                    
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                default:
+                    System.out.println("Opción no contemplada. Intente de nuevo.");
+                    break;
+            }
+        } while (opcion != 4) ;
 	}
 	
 	private cargarJugadores() {
@@ -53,4 +72,18 @@ public class Juego {
     		actual.setCartaEnMano(mazo.extraerCarta());
     	}
     }
+
+    private int mostrarMenu() {
+
+        System.out.println("\n=====================================");
+        System.out.println("  PROYECTO INTEGRADOR I - JUEGO DE CARTAS");
+        System.out.println("=====================================");
+        System.out.println("1. Registrar / Configurar Jugadores (4)");
+        System.out.println("2. Iniciar Partida (Jugar Rondas)");
+        System.out.println("3. Ver Reglas del Juego");
+        System.out.println("4. Salir");
+        return Helper.nextInteger("Ingrese una opción: ", "Debe ingresar un número.");
+    
+    }
+
 }
