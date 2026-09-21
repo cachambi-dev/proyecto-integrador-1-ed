@@ -26,7 +26,7 @@ public class Mazo {
     private Carta[] generarCartas() {
         Carta[] cartas = new Carta[52];
 
-        String[] palos = { "Oro", "Copa", "Espada", "Basto" };
+        String[] palos = { "Trebol", "Corazon", "Diamante", "Pica" };
         int index = 0;
 
         for (String palo : palos) {
@@ -112,11 +112,17 @@ public class Mazo {
      * 
      * @throws IllegalStateException Si el mazo está vacío.
      */
-    public void extraerCarta() {
+    public Carta extraerCarta() {
         if (this.mazoCartas.isEmpty()) {
             throw new IllegalStateException("No hay más cartas en el mazo.");
         }
-        this.mazoCartas.remove();
+        return this.mazoCartas.remove();
     }
+    
+    
+    public int size() {
+    	return mazoCartas.size(); 
+    }
+    
 
 }

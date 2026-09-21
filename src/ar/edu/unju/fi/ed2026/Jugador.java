@@ -6,7 +6,7 @@ public class Jugador {
     private String apellido;
     private int edad;
     private int puntaje;
-    private Object cartaEnMano;
+    private Carta cartaEnMano;
     private MiStack cartasAcumuladas;
 
     // Constructor vacío
@@ -19,6 +19,7 @@ public class Jugador {
         this.apellido = apellido;
         this.edad = edad;
         this.puntaje = 0;
+        this.cartasAcumuladas = new MiStack(52);
     }
 
     // --- GETTERS Y SETTERS (para manipular la info desde el Main u otras clases) ---
@@ -55,11 +56,11 @@ public class Jugador {
         this.puntaje += puntos;
     }
 
-    public Object getCartaEnMano() {
+    public Carta getCartaEnMano() {
         return cartaEnMano;
     }
 
-    public void setCartaEnMano(Object cartaEnMano) {
+    public void setCartaEnMano(Carta cartaEnMano) {
         this.cartaEnMano = cartaEnMano;
     }
     
@@ -78,12 +79,15 @@ public class Jugador {
 
     public int sumarPuntaje() {
         int total = 0;
-
         while (!this.cartasAcumuladas.isEmpty()) {
             Carta carta = this.cartasAcumuladas.pop();
             total += carta.getValor();
         }   
-
+        this.puntaje = total;
         return total;
+    }
+    
+    public void acumularCarta(Carta carta) {
+        this.cartasAcumuladas.push(carta);
     }
 }
