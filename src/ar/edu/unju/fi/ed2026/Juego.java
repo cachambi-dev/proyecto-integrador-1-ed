@@ -40,8 +40,8 @@ public class Juego {
 
 	    for (int i = 0; i < jugadores.length; i++) {
 	        System.out.println("\n--- Datos del Jugador " + (i + 1) + " ---");
-	        String nombre = Helper.nextString("Nombre: ", "Debe ingresar un texto válido.");
-	        String apellido = Helper.nextString("Apellido: ", "Debe ingresar un texto válido.");
+	        String nombre = Helper.nextString("Nombre: ");
+	        String apellido = Helper.nextString("Apellido: ");
 	        int edad = Helper.nextInteger("Edad: ", "Debe ingresar un número.");
 
 	        jugadores[i] = crearJugador(nombre, apellido, edad);
