@@ -1,6 +1,8 @@
 package ar.edu.unju.fi.ed2026;
 
-
+/**
+ * Clase que representa a un jugador en el juego de cartas.
+ */
 public class Jugador {
     private String nombre;
     private String apellido;
@@ -77,6 +79,10 @@ public class Jugador {
         return "Jugador: " + nombre + " " + apellido + " (Edad: " + edad + " años) - Puntaje actual: " + puntaje;
     }
 
+    /**
+     * Suma el puntaje del jugador basado en las cartas acumuladas y actualiza su puntaje total.
+     * @return El puntaje total del jugador después de sumar las cartas acumuladas.
+     */
     public int sumarPuntaje() {
         int total = 0;
         while (!this.cartasAcumuladas.isEmpty()) {
@@ -87,6 +93,10 @@ public class Jugador {
         return total;
     }
     
+    /**
+     * Acumula una carta en la pila de cartas acumuladas del jugador.
+     * @param carta La carta que se desea acumular.
+     */
     public void acumularCarta(Carta carta) {
         this.cartasAcumuladas.push(carta);
     }

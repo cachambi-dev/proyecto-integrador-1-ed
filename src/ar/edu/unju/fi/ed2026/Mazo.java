@@ -108,10 +108,11 @@ public class Mazo {
     }
 
     /**
-     * Saca y muestra la carta superior del mazo.
-     * 
-     * @throws IllegalStateException Si el mazo está vacío.
-     */
+        * Extrae una carta del mazo, marcándola como no disponible.
+        * 
+        * @return La carta extraída del mazo.
+        * @throws IllegalStateException Si no hay más cartas en el mazo.
+        */
     public Carta extraerCarta() {
         if (this.mazoCartas.isEmpty()) {
             throw new IllegalStateException("No hay más cartas en el mazo.");

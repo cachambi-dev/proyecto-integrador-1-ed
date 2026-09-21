@@ -2,11 +2,17 @@ package ar.edu.unju.fi.ed2026;
 
 import ar.edu.unju.fi.ed2026.Helper.*;
 
+/**
+ * Clase que representa el juego de cartas.
+ */
 public class Juego {
 	// codigo del juego
 	Jugador[] jugadores;
 	Mazo mazo;
 	
+    /**
+     * Constructor de la clase Juego. Inicializa el mazo y controla el flujo del juego.
+     */
 	public Juego() {
 
 
@@ -34,7 +40,10 @@ public class Juego {
         } while (opcion != 4) ;
 	}
 	
-	
+	/**
+     * Carga los datos de los jugadores solicitando al usuario que ingrese la información.
+     * @return Un arreglo de objetos Jugador con los datos ingresados.
+     */
 	private Jugador[] cargarJugadores() {
 	    Jugador[] jugadores = new Jugador[4];
 
@@ -50,7 +59,13 @@ public class Juego {
 	    return jugadores;
 	}
 	
-	
+	/**
+     * Crea un nuevo jugador con los datos proporcionados.
+     * @param nombre El nombre del jugador.
+     * @param apellido El apellido del jugador.
+     * @param edad La edad del jugador.
+     * @return Un objeto Jugador con los datos proporcionados.
+     */
 	private Jugador crearJugador(String nombre, String apellido, int edad) {
 		Jugador jugador = new Jugador(nombre, apellido, edad);
 		return jugador;
@@ -82,7 +97,9 @@ public class Juego {
         return ganadora;
     }
     
-    
+    /**
+     * Bucle principal del juego que controla las rondas y determina el ganador final.
+     */
     private void bucleDeJuego() {
         if (jugadores == null) {
             System.out.println("Primero debe registrar a los jugadores (opción 1).");
@@ -105,7 +122,11 @@ public class Juego {
         mostrarPuntajes();
     }
     
-    
+    /**
+     * Realiza un turno del juego, donde cada jugador toma una carta del mazo y se determina el ganador de la ronda.
+     * @param jugadores El arreglo de jugadores que participan en el turno.
+     * @param mazo El mazo del cual se extraen las cartas.
+     */
     private void turno (Jugador[] jugadores, Mazo mazo) {
     	if (jugadores.length > mazo.size()) {
     		System.out.println("No quedan suficientes cartas en el mazo.");
@@ -131,6 +152,9 @@ public class Juego {
         }
     }
     
+    /**
+     * Muestra los puntajes finales de los jugadores y determina el ganador.
+     */
     private void mostrarPuntajes() {
         System.out.println("\n=== PUNTAJES FINALES ===");
         Jugador ganador = jugadores[0];
@@ -156,6 +180,12 @@ public class Juego {
         }
     }
     
+    /**
+     * Busca el jugador que tiene la carta ganadora en su mano.
+     * @param jugadores El arreglo de jugadores.
+     * @param carta La carta ganadora.
+     * @return El jugador que tiene la carta ganadora, o null si no se encuentra.
+     */
     private Jugador buscarJugadorPorCarta(Jugador[] jugadores, Carta carta) {
         for (Jugador j : jugadores) {
             if (j.getCartaEnMano() == carta) {
@@ -165,12 +195,21 @@ public class Juego {
         return null;
     }
     
+    /**
+     * Reparte una carta a cada jugador desde el mazo.
+     * @param jugadores El arreglo de jugadores que recibirán las cartas.
+     * @param mazo El mazo del cual se extraerán las cartas.
+     */
     private void repartirCartas (Jugador[] jugadores, Mazo mazo) {
     	for (Jugador actual : jugadores) {
     		actual.setCartaEnMano(mazo.extraerCarta());
     	}
     }
 
+    /**
+     * Muestra el menú principal del juego y solicita al usuario que ingrese una opción.
+     * @return la opción seleccionada por el usuario.
+     */
     private int mostrarMenu() {
 
         System.out.println("\n=====================================");
@@ -183,6 +222,9 @@ public class Juego {
         return Helper.nextInteger("Ingrese una opción: ", "Debe ingresar un número.");    
     }
     
+    /**
+     * Muestra las reglas del juego en la consola.
+     */
     private void mostrarReglas() {
         System.out.println("\n=====================================");
         System.out.println("           REGLAS DEL JUEGO");
