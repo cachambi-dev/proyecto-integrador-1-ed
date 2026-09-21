@@ -1,3 +1,5 @@
+package ar.edu.unju.fi.ed2026;
+
 import ar.edu.unju.fi.ed2026.Helper.*;
 
 public class Juego {
@@ -6,23 +8,24 @@ public class Juego {
 	Mazo mazo;
 	
 	public Juego() {
-		this.jugadores = cargarJugadores();
+
+
 		this.mazo = new Mazo();
         int opcion;
-        do{
+        do {
             opcion = mostrarMenu();
             switch (opcion) {
                 case 1:
-                    
+            		this.jugadores = cargarJugadores();
                     break;
                 case 2:
-
+                	bucleDeJuego();
                     break;
                 case 3:
-
+                	mostrarReglas();
                     break;
                 case 4:
-
+                	System.out.println("Fin del programa.");                	
                     break;
                 default:
                     System.out.println("Opción no contemplada. Intente de nuevo.");
@@ -31,12 +34,25 @@ public class Juego {
         } while (opcion != 4) ;
 	}
 	
-	private cargarJugadores() {
-		
+	
+	private Jugador[] cargarJugadores() {
+	    Jugador[] jugadores = new Jugador[4];
+
+	    for (int i = 0; i < jugadores.length; i++) {
+	        System.out.println("\n--- Datos del Jugador " + (i + 1) + " ---");
+	        String nombre = Helper.nextString("Nombre: ", "Debe ingresar un texto válido.");
+	        String apellido = Helper.nextString("Apellido: ", "Debe ingresar un texto válido.");
+	        int edad = Helper.nextInteger("Edad: ", "Debe ingresar un número.");
+
+	        jugadores[i] = crearJugador(nombre, apellido, edad);
+	    }
+
+	    return jugadores;
 	}
 	
-	private Jugador cargarJugador(String nombre, String apellido) {
-		
+	
+	private Jugador crearJugador(String nombre, String apellido, int edad) {
+		Jugador jugador = new Jugador(nombre, apellido, edad);
 		return jugador;
 	}
 	
@@ -67,6 +83,88 @@ public class Juego {
     }
     
     
+    private void bucleDeJuego() {
+        if (jugadores == null) {
+            System.out.println("Primero debe registrar a los jugadores (opción 1).");
+            return;
+        }
+
+        final int rondas = 3;
+
+        for (int i = 1; i <= rondas; i++) {
+            System.out.println("\n--- Ronda " + i + " ---");
+
+            if (mazo.size() < jugadores.length) {
+                System.out.println("El mazo no tiene suficientes cartas. Se corta la partida.");
+                break;
+            }
+
+            turno(jugadores, mazo);
+        }
+
+        mostrarPuntajes();
+    }
+    
+    
+    private void turno (Jugador[] jugadores, Mazo mazo) {
+    	if (jugadores.length > mazo.size()) {
+    		System.out.println("No quedan suficientes cartas en el mazo.");
+    		return;
+    	}
+    	repartirCartas (jugadores, mazo);    	
+    	Carta cartaGanadora = comparaCartas(jugadores);
+    	
+    	if (cartaGanadora == null) {
+            System.out.println("Empate en esta ronda. Cada jugador conserva su carta.");
+            for (Jugador jugador : jugadores) {
+            	jugador.acumularCarta(jugador.getCartaEnMano());
+            	jugador.setCartaEnMano(null);
+            }
+            return;
+        }
+
+        Jugador ganador = buscarJugadorPorCarta(jugadores, cartaGanadora);
+        System.out.println("Ganador de la ronda: " + ganador.getNombre());
+        for (Jugador actual : jugadores) {
+            ganador.acumularCarta(actual.getCartaEnMano());
+            actual.setCartaEnMano(null);
+        }
+    }
+    
+    private void mostrarPuntajes() {
+        System.out.println("\n=== PUNTAJES FINALES ===");
+        Jugador ganador = jugadores[0];
+
+        for (Jugador j : jugadores) {
+            j.sumarPuntaje();
+            System.out.println(j);
+            if (j.getPuntaje() > ganador.getPuntaje()) {
+                ganador = j;
+            }
+        }
+
+        boolean hayEmpate = false;
+        for (Jugador j : jugadores) {
+            if (j != ganador && j.getPuntaje() == ganador.getPuntaje()) {
+                hayEmpate = true;
+            }
+        }
+        if (hayEmpate) {
+            System.out.println("¡Hay empate en el primer puesto!");
+        } else {
+            System.out.println("Ganador: " + ganador.getNombre() + " " + ganador.getApellido());
+        }
+    }
+    
+    private Jugador buscarJugadorPorCarta(Jugador[] jugadores, Carta carta) {
+        for (Jugador j : jugadores) {
+            if (j.getCartaEnMano() == carta) {
+                return j;
+            }
+        }
+        return null;
+    }
+    
     private void repartirCartas (Jugador[] jugadores, Mazo mazo) {
     	for (Jugador actual : jugadores) {
     		actual.setCartaEnMano(mazo.extraerCarta());
@@ -82,8 +180,27 @@ public class Juego {
         System.out.println("2. Iniciar Partida (Jugar Rondas)");
         System.out.println("3. Ver Reglas del Juego");
         System.out.println("4. Salir");
-        return Helper.nextInteger("Ingrese una opción: ", "Debe ingresar un número.");
+        return Helper.nextInteger("Ingrese una opción: ", "Debe ingresar un número.");    
+    }
     
+    private void mostrarReglas() {
+        System.out.println("\n=====================================");
+        System.out.println("           REGLAS DEL JUEGO");
+        System.out.println("=====================================");
+        System.out.println("- Participan 4 jugadores.");
+        System.out.println("- Se juega con un mazo de 52 cartas francesas");
+        System.out.println("  (trébol, pica, corazones y diamantes), valores del 1 al 13.");
+        System.out.println("- En cada ronda, cada jugador toma una carta del mazo.");
+        System.out.println("- Se comparan las cartas de la ronda: quien tenga el valor");
+        System.out.println("  más alto se lleva las cartas de todos los jugadores.");
+        System.out.println("- Si hay empate en el valor máximo, cada jugador conserva");
+        System.out.println("  su propia carta.");
+        System.out.println("- El juego finaliza al jugar 3 rondas (o cuando se acaba");
+        System.out.println("  el mazo, lo que ocurra primero).");
+        System.out.println("- Al finalizar, cada jugador suma el valor de las cartas");
+        System.out.println("  acumuladas. Gana quien tenga el puntaje más alto");
+        System.out.println("  (pueden existir empates).");
+        System.out.println("=====================================\n");
     }
 
 }
