@@ -17,6 +17,12 @@
 
     <build>
         <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test_falso</testSourceDirectory>
+	    <resources>
+	        <resource>
+	            <directory>recursos_falsos</directory>
+	        </resource>
+	    </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
