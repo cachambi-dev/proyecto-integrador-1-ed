@@ -25,7 +25,7 @@ public class Juego {
             		this.jugadores = cargarJugadores();
                     break;
                 case 2:
-                	bucleDeJuego();
+                    iniciarPartida();
                     break;
                 case 3:
                 	mostrarReglas();
@@ -100,7 +100,7 @@ public class Juego {
     /**
      * Bucle principal del juego que controla las rondas y determina el ganador final.
      */
-    private void bucleDeJuego() {
+    private void iniciarPartida() {
         if (jugadores == null) {
             System.out.println("Primero debe registrar a los jugadores (opción 1).");
             return;
@@ -116,7 +116,7 @@ public class Juego {
                 break;
             }
 
-            turno(jugadores, mazo);
+            ejecutarRonda(jugadores, mazo);
         }
 
         mostrarPuntajes();
@@ -127,7 +127,7 @@ public class Juego {
      * @param jugadores El arreglo de jugadores que participan en el turno.
      * @param mazo El mazo del cual se extraen las cartas.
      */
-    private void turno (Jugador[] jugadores, Mazo mazo) {
+    private void ejecutarRonda (Jugador[] jugadores, Mazo mazo) {
     	if (jugadores.length > mazo.size()) {
     		System.out.println("No quedan suficientes cartas en el mazo.");
     		return;
