@@ -61,7 +61,7 @@ public class Juego {
      * @param cartas El arreglo de cartas que representa las cartas en juego.
      * @return la carta mayor, o null si hay empate.
      */
-    public Carta comparaCartas(Jugador[] jugadores) {
+    private Carta comparaCartas(Jugador[] jugadores) {
         Carta ganadora = jugadores[0].getCartaEnMano();
         boolean hayEmpate = false;
 
