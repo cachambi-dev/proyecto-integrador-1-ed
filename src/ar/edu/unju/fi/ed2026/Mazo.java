@@ -116,7 +116,9 @@ public class Mazo {
         if (this.mazoCartas.isEmpty()) {
             throw new IllegalStateException("No hay más cartas en el mazo.");
         }
-        return this.mazoCartas.remove();
+        Carta cartaExtraida = this.mazoCartas.remove();
+        cartaExtraida.setDisponible(false);
+        return cartaExtraida;
     }
     
     
